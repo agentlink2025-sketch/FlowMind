@@ -1,0 +1,9 @@
+.wrap { height: 100vh; display: flex; flex-direction: column; }
+/* 底部留白更大，避免被输入区遮挡 */
+.list { flex: 1; padding: 20rpx 0 300rpx; box-sizing: border-box; }
+/* 输入区整体上移，并带安全区内边距 */
+.composer { position: fixed; left: 0; right: 0; bottom: 96rpx; display: flex; gap: 16rpx; padding: 16rpx; padding-bottom: calc(16rpx + env(safe-area-inset-bottom)); background: rgba(17,24,39,.92); backdrop-filter: blur(8px); border-top: 1px solid #1f2937; border-radius: 16rpx 16rpx 0 0; }
+.input { flex: 1; min-height: 76rpx; max-height: 280rpx; padding: 16rpx; box-sizing: border-box; border-radius: 12rpx; background: #0f172a; color: #e5e7eb; }
+/* 按钮更大、更柔和的颜色 */
+.send { height: 88rpx; line-height: 88rpx; padding: 0 36rpx; border-radius: 16rpx; font-size: 30rpx; background: #93c5fd; color: #0b1220; border: none; }
+.send[disabled] { opacity: .6; }

@@ -1,0 +1,14 @@
+<view class="row {{from==='user' ? 'right' : 'left'}}">
+<image class="avatar" src="{{from==='user' ? userAvatar : botAvatar}}" mode="aspectFill" />
+<view class="bubble {{from}}">
+<rich-text nodes="{{rendered}}" />
+<block wx:if="{{loading}}">
+<view class="typing">
+<view class="dot"></view><view class="dot"></view><view class="dot"></view>
+</view>
+</block>
+<block wx:if="{{error}}">
+<view class="error">发送失败 · <text class="retry" bindtap="onRetry">重试</text></view>
+</block>
+</view>
+</view>

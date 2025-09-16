@@ -1,0 +1,17 @@
+<view class="wrap">
+<scroll-view class="list" scroll-y scroll-with-animation scroll-into-view="{{scrollInto}}">
+<block wx:for="{{messages}}" wx:key="id">
+<view id="m{{item.id}}">
+<msg-item from="{{item.from}}" text="{{item.text}}" loading="{{item.loading}}" error="{{item.error}}" message-id="{{item.id}}" bind:retry="onRetry" />
+</view>
+</block>
+<view id="anchor"></view>
+</scroll-view>
+
+
+<view class="composer shadow-soft">
+<textarea class="input" placeholder="问我：投放优化、RAG知识库…" value="{{draft}}" auto-height maxlength="-1" bindinput="onInput" bindconfirm="onSend" confirm-type="send"/>
+<button class="send" type="primary" loading="{{sending}}" disabled="{{!draft.trim() || sending}}" bindtap="onSend">发送</button>
+</view>
+<view class="safe-bottom" />
+</view>
