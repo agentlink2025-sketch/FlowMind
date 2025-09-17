@@ -34,9 +34,9 @@
   </view>
 
   <view class="footer">
-    <view class="tab active">创作</view>
-    <view class="tab">案例</view>
-    <view class="tab">论坛</view>
+    <view class="tab active">对话</view>
+    <view class="tab" bindtap="goMe">案例</view>
+    <view class="tab" bindtap="goMe">论坛</view>
     <view class="tab" bindtap="goMe">我的</view>
   </view>
 </view>

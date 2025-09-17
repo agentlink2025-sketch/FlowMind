@@ -1,9 +1,127 @@
-.wrap { height: 100vh; display: flex; flex-direction: column; }
-/* 底部留白更大，避免被输入区遮挡 */
-.list { flex: 1; padding: 20rpx 0 300rpx; box-sizing: border-box; }
-/* 输入区整体上移，并带安全区内边距 */
-.composer { position: fixed; left: 0; right: 0; bottom: 96rpx; display: flex; gap: 16rpx; padding: 16rpx; padding-bottom: calc(16rpx + env(safe-area-inset-bottom)); background: rgba(17,24,39,.92); backdrop-filter: blur(8px); border-top: 1px solid #1f2937; border-radius: 16rpx 16rpx 0 0; }
-.input { flex: 1; min-height: 76rpx; max-height: 280rpx; padding: 16rpx; box-sizing: border-box; border-radius: 12rpx; background: #0f172a; color: #e5e7eb; }
-/* 按钮更大、更柔和的颜色 */
-.send { height: 88rpx; line-height: 88rpx; padding: 0 36rpx; border-radius: 16rpx; font-size: 30rpx; background: #93c5fd; color: #0b1220; border: none; }
-.send[disabled] { opacity: .6; }
+/* 整页容器：不让页面滚动（由内部 scroll-view 负责滚动） */
+.chat-page {
+  height: 100vh;
+  background: #ffffff;
+  position: relative;
+  overflow: hidden;   /* 关键：禁用页面层面的滚动 */
+}
+
+/* 顶部导航 */
+.nav {
+  height: 96rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  z-index: 5;
+}
+.nav-btn {
+  position: absolute; left: 16rpx;
+  border: none; background: transparent;
+  font-size: 40rpx; line-height: 96rpx; color: #111827;
+}
+.nav-title { font-size: 30rpx; font-weight: 700; color: #111827; }
+
+/* 顶部分段条（紧跟在导航下） */
+.seg {
+  height: 88rpx;
+  display: flex; align-items: center;
+  background: #ffffff;
+  padding: 0 24rpx;
+  font-size: 28rpx; font-weight: 600; color: #111827;
+  border-bottom: 1px solid #e5e7eb;
+  position: absolute;
+  top: 96rpx; left: 0; right: 0;
+  z-index: 4;
+}
+
+/* 消息列表：固定在导航+分段之下，底到屏幕底部（不会随页面滚动） */
+.list {
+  position: absolute;
+  left: 0; right: 0;
+  top: 184rpx;        /* 96rpx(导航) + 88rpx(分段) */
+  bottom: 0;          /* 底部留白用 padding-bottom 动态控制 */
+  box-sizing: border-box;
+  padding: 24rpx;
+}
+
+/* 行容器：决定左右对齐 */
+.row { display: flex; margin: 8rpx 0; }
+.row.bot  { justify-content: flex-start; } /* 机器人在左 */
+.row.user { justify-content: flex-end;   } /* 用户在右 */
+
+/* 气泡基础样式 */
+.bubble {
+  max-width: 75%;
+  font-size: 32rpx;
+  line-height: 1.5;
+  word-break: break-word;
+  white-space: pre-wrap;
+  box-sizing: border-box;
+  color: #111827;
+  border-radius: 18rpx;
+}
+
+/* 机器人：纯文字，无背景 */
+.bubble.bot {
+  background: transparent;
+  margin-left: 12rpx;
+  padding: 0;
+}
+
+/* 用户：浅灰右侧小气泡 */
+.bubble.user {
+  background: #f3f4f6;
+  margin-right: 12rpx;
+  padding: 12rpx 18rpx;
+  position: relative;
+}
+
+/* 底部输入区：固定到底部，仅自身 transform 上移 */
+.composer {
+  position: fixed;
+  left: 0; right: 0;
+  bottom: env(safe-area-inset-bottom);
+  padding: 16rpx 20rpx 20rpx;
+  background: #ffffff;
+  border-top: 1px solid #e5e7eb;
+  display: flex; align-items: flex-end;
+  box-sizing: border-box;
+  will-change: transform;  /* 位移更流畅 */
+  z-index: 10;
+}
+
+/* 输入框与发送按钮 */
+.input {
+  flex: 1;
+  min-height: 100rpx;
+  max-height: 300rpx;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 18rpx;
+  padding: 16rpx 90rpx 16rpx 16rpx; /* 右侧给按钮留位 */
+  font-size: 28rpx; color: #111827;
+  box-sizing: border-box;
+}
+.send {
+  position: absolute; right: 40rpx; bottom: 40rpx;
+  width: 48rpx !important; height: 48rpx !important;
+  border-radius: 50% !important; background: #9ca3af;
+  border: none; display: flex; align-items: center; justify-content: center; padding: 0;
+}
+.send::after { border: none; }
+.arrow { width: 26rpx; height: 26rpx; }
+
+/* 没输入：灰底 + 白箭头 */
+.send.disabled { background: #9ca3af; }
+
+/* 有输入：黑底 + 白箭头 */
+.send.active { background: #111827; }
+
+.arrow {
+  width: 30rpx;
+  height: 30rpx;
+}

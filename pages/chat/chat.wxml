@@ -1,17 +1,53 @@
-<view class="wrap">
-<scroll-view class="list" scroll-y scroll-with-animation scroll-into-view="{{scrollInto}}">
-<block wx:for="{{messages}}" wx:key="id">
-<view id="m{{item.id}}">
-<msg-item from="{{item.from}}" text="{{item.text}}" loading="{{item.loading}}" error="{{item.error}}" message-id="{{item.id}}" bind:retry="onRetry" />
+<view class="chat-page">
+
+<!-- 自定义导航 -->
+<view class="nav">
+  <button class="nav-btn" bindtap="navigateBack">‹</button>
+  <text class="nav-title">对话</text>
 </view>
-</block>
-<view id="anchor"></view>
+
+<!-- 顶部分段（占位，可扩展） -->
+<view class="seg">对话</view>
+
+<!-- 消息列表：固定区域内滚动（不使用页面滚动） -->
+<scroll-view
+  id="chatSV"
+  class="list"
+  scroll-y
+  enable-flex="true"
+  show-scrollbar="false"
+  scroll-with-animation="false"
+  scroll-top="{{svScrollTop}}"
+  style="padding-bottom: {{pbottom}}px;"
+>
+  <block wx:for="{{messages}}" wx:key="id">
+    <view class="row {{item.from}}">
+      <view class="bubble {{item.from}}">
+        {{ item.loading ? '…生成中' : item.text }}
+      </view>
+    </view>
+  </block>
 </scroll-view>
 
-
-<view class="composer shadow-soft">
-<textarea class="input" placeholder="问我：投放优化、RAG知识库…" value="{{draft}}" auto-height maxlength="-1" bindinput="onInput" bindconfirm="onSend" confirm-type="send"/>
-<button class="send" type="primary" loading="{{sending}}" disabled="{{!draft.trim() || sending}}" bindtap="onSend">发送</button>
+<!-- 底部输入区：只自身上移，不影响消息区域布局 -->
+<view class="composer" style="transform: translateY(-{{keyboardHeight}}px);">
+  <textarea class="input"
+            placeholder="请输入你的问题…"
+            value="{{draft}}"
+            adjust-position="false"  
+            show-confirm-bar="false"
+            cursor-spacing="40"
+            auto-height
+            maxlength="-1"
+            bindinput="onInput"
+            bindconfirm="onSend"
+            confirm-type="send"
+            bindfocus="onFocus"
+            bindblur="onBlur" />
+    <button class="send {{draft ? 'active' : 'disabled'}}"
+          bindtap="onSend">
+         <image class="arrow" src="/images/arrow-up.svg" mode="aspectFit"/>
+    </button>
 </view>
-<view class="safe-bottom" />
+
 </view>
