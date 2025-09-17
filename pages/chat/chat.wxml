@@ -1,13 +1,8 @@
 <view class="chat-page">
 
-<!-- 自定义导航 -->
-<view class="nav">
-  <button class="nav-btn" bindtap="navigateBack">‹</button>
-  <text class="nav-title">对话</text>
-</view>
 
 <!-- 顶部分段（占位，可扩展） -->
-<view class="seg">对话</view>
+<view class="seg">云链灵智</view>
 
 <!-- 消息列表：固定区域内滚动（不使用页面滚动） -->
 <scroll-view
@@ -40,8 +35,6 @@
             auto-height
             maxlength="-1"
             bindinput="onInput"
-            bindconfirm="onSend"
-            confirm-type="send"
             bindfocus="onFocus"
             bindblur="onBlur" />
     <button class="send {{draft ? 'active' : 'disabled'}}"
