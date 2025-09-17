@@ -1,62 +1,131 @@
-/**index.wxss**/
-page {
-  height: 100vh;
+/* 页面与头部区域（保持原有） */
+
+
+.page {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #5eead4 0%, #ffffff 35%);
   display: flex;
   flex-direction: column;
 }
-.scrollarea {
+.hero {
+  flex: 1;                       /* 占满屏幕剩余空间 */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;   /* 默认从上往下排 */
+  padding: 40rpx 32rpx;
+  position: relative;
+}
+.middle {
   flex: 1;
-  overflow-y: hidden;
-}
-
-.userinfo {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  color: #aaa;
-  width: 80%;
+  justify-content: center;     /* 在剩余空间内居中 */
+  align-items: center;         /* 水平居中 */
+  margin-top: -400rpx;           /* ✅ 这里可以调节“靠上”程度 */
+}
+.title {
+  font-size: 44rpx;
+  font-weight: 800;
+  color:#000000;
+  text-align: center;
+  
+}
+.subtitle {
+  margin-top: 12rpx;
+  font-size: 26rpx;
+  color: #6b7280;
+  text-align: center;
+}
+.brand { 
+  font-weight: 700; font-size: 36rpx;  color: #000000;
+  position: absolute;
+  left: 32rpx;
+  font-weight: 700;
+  font-size: 36rpx;
+}
+.actions { position: absolute; right: 24rpx; top: 30rpx; display: flex; gap: 16rpx; }
+.dot, .scan { width: 64rpx; height: 64rpx; line-height: 64rpx; text-align: center; border-radius: 50%; background: rgba(255,255,255,.6); border: none; }
+.title {
+  margin-top: 40rpx;
+  font-size: 48rpx;
+  font-weight: 800;
+  color: #111827;
+  text-align: center;     /* ✅ 居中 */
 }
 
-.userinfo-avatar {
-  overflow: hidden;
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
-  border-radius: 50%;
+.subtitle {
+  margin-top: 12rpx;
+  font-size: 28rpx;
+  color: #6b7280;
+  text-align: center;     /* ✅ 居中 */
 }
 
-.usermotto {
-  margin-top: 200px;
-}
+.composer {
+  min-height: 200rpx;
+  max-height: 500rpx;
+  width: 95%;
+  margin-top: 40rpx;
+  position: relative;        /* ✅ 为子元素定位做准备 */
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 24rpx;
+  padding: 20rpx;
+  display: flex;
+  box-shadow: 0 8rpx 24rpx rgba(0,0,0,.06);
+  margin-top: 150rpx;    /* ✅ 增大副标题和输入框之间的距离 */
 
-.avatar-wrapper {
+}
+.prompt {
+  flex: 1 1 auto;             /* 输入框占满剩余空间 */
+  min-height: 140rpx;
+  max-height: 360rpx;
+  font-size: 28rpx;
+  color: #111827;
+  line-height: 1.6;
   padding: 0;
-  width: 56px !important;
-  border-radius: 8px;
-  margin-top: 40px;
-  margin-bottom: 40px;
+  margin: 0;
+  background: transparent;
+  border: none;
+  /* 防止 iOS 文本域奇怪的拉伸 */
+  -webkit-appearance: none;
 }
 
-.avatar {
-  display: block;
-  width: 56px;
-  height: 56px;
-}
-
-.nickname-wrapper {
+.send {
+  position: absolute;
+  right: 24rpx;
+  bottom: 24rpx;
+  width: 48rpx !important;     /* 强制固定宽度 */
+  height: 48rpx !important;    /* 强制固定高度 */
+  border-radius: 50% !important;
+  background: #9ca3af;
   display: flex;
-  width: 100%;
-  padding: 16px;
-  box-sizing: border-box;
-  border-top: .5px solid rgba(0, 0, 0, 0.1);
-  border-bottom: .5px solid rgba(0, 0, 0, 0.1);
-  color: black;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  padding: 0;                  /* 去掉内边距 */
+  line-height: 48rpx;          /* 避免按钮默认行高撑开 */
+  flex-shrink: 0;
 }
 
-.nickname-label {
-  width: 105px;
+/* 去掉小程序按钮的默认边框效果 */
+.send::after {
+  border: none;
 }
 
-.nickname-input {
-  flex: 1;
+.arrow-icon {
+  width: 30rpx;
+  height: 30rpx;
 }
+
+/* 标签与底部栏（保持原有） */
+.chips { margin-top: 24rpx; white-space: nowrap; }
+.chip { display: inline-flex; padding: 16rpx 24rpx; margin-right: 16rpx; background: #fff; border: 1px solid #e5e7eb; border-radius: 9999rpx; color: #374151; font-size: 26rpx; }
+
+.footer {
+  position: fixed; bottom: env(safe-area-inset-bottom); left: 0; right: 0;
+  padding: 12rpx 24rpx calc(12rpx + env(safe-area-inset-bottom));
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 8rpx;
+  background: #fff; border-top: 1px solid #e5e7eb;
+}
+.tab { text-align: center; padding: 12rpx 0; color: #6b7280; }
+.tab.active { color: #111827; font-weight: 600; }

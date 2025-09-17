@@ -1,14 +1,17 @@
 {
   "pages": [
-  "pages/chat/chat"
+    "pages/index/index",
+    "pages/chat/chat"
   ],
   "window": {
-  "navigationBarTitleText": "营销智能体",
-  "navigationBarBackgroundColor": "#111827",
-  "navigationBarTextStyle": "white",
-  "backgroundTextStyle": "light",
-  "backgroundColor": "#0b1220"
+    "navigationBarTitleText": "云链灵智",
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTextStyle": "black",
+    "backgroundTextStyle": "light",
+    "backgroundColor": "#5eead4",
+    "navigationStyle": "custom"
+
   },
   "style": "v2",
   "sitemapLocation": "sitemap.json"
-  }
+}

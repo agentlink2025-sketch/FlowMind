@@ -1,49 +1,26 @@
-// index.js
-const defaultAvatarUrl = 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0'
-
 Page({
+  statusBarHeight: 20,  // 默认值，避免为空
   data: {
-    motto: 'Hello World',
-    userInfo: {
-      avatarUrl: defaultAvatarUrl,
-      nickName: '',
-    },
-    hasUserInfo: false,
-    canIUseGetUserProfile: wx.canIUse('getUserProfile'),
-    canIUseNicknameComp: wx.canIUse('input.type.nickname'),
+    draft: '',
+    chips: ['小红书文案', '广告效果分析', '营销工作计划']
   },
-  bindViewTap() {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
-  },
-  onChooseAvatar(e) {
-    const { avatarUrl } = e.detail
-    const { nickName } = this.data.userInfo
+  onLoad() {
+    // 获取系统信息
+    const systemInfo = wx.getSystemInfoSync()
     this.setData({
-      "userInfo.avatarUrl": avatarUrl,
-      hasUserInfo: nickName && avatarUrl && avatarUrl !== defaultAvatarUrl,
+      statusBarHeight: systemInfo.statusBarHeight
     })
   },
-  onInputChange(e) {
-    const nickName = e.detail.value
-    const { avatarUrl } = this.data.userInfo
-    this.setData({
-      "userInfo.nickName": nickName,
-      hasUserInfo: nickName && avatarUrl && avatarUrl !== defaultAvatarUrl,
-    })
+  onInput: function(e){ this.setData({ draft: e.detail.value }); },
+  onChipTap: function(e){
+    var text = e.currentTarget.dataset.text || '';
+    this.setData({ draft: text });
   },
-  getUserProfile(e) {
-    // 推荐使用wx.getUserProfile获取用户信息，开发者每次通过该接口获取用户个人信息均需用户确认，开发者妥善保管用户快速填写的头像昵称，避免重复弹窗
-    wx.getUserProfile({
-      desc: '展示用户信息', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
-      success: (res) => {
-        console.log(res)
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-      }
-    })
+  goChat: function(){
+    var q = (this.data.draft || '').trim();
+    wx.navigateTo({ url: '/pages/chat/chat?q=' + encodeURIComponent(q) });
   },
-})
+  goMe: function(){ wx.showToast({ title: '敬请期待', icon: 'none' }); },
+  onMore: function(){ wx.showActionSheet({ itemList: ['关于', '反馈'] }); },
+  onScan: function(){ /* open-type=scanCode 成功后自动返回结果，这里可按需处理 */ }
+});
