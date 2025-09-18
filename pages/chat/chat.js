@@ -47,7 +47,7 @@ Page({
     this.stopStream()
     this.setData({ sending: true })
     this.appendUser(question)
-    const botMsg = this.appendBot('...思考中', true)
+    const botMsg = this.appendBot('思考中...', true)
 
     req.request('/api/chat/miniprogram', {
       method: 'POST',
