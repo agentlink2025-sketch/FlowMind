@@ -125,3 +125,5 @@
   width: 30rpx;
   height: 30rpx;
 }
+.cursor { margin-left: 6rpx; opacity: .6; animation: blink 1s steps(2, jump-none) infinite; }
+@keyframes blink { 50% { opacity: 0; } }

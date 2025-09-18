@@ -18,7 +18,7 @@
   <block wx:for="{{messages}}" wx:key="id">
     <view class="row {{item.from}}">
       <view class="bubble {{item.from}}">
-        {{ item.loading ? '…生成中' : item.text }}
+        <text selectable="true">{{ item.text }}</text>
       </view>
     </view>
   </block>
